@@ -87,23 +87,6 @@ class RelationshipUseCase {
             result[employee.name] = emptyList
         return result
     }
-    private fun getHierarchyPerEmployee(name: String): Set<Employee> {
-        val emps: MutableSet<Employee> = mutableSetOf()
-        val children: Set<Employee>
-
-        val aEmp = employeeUseCase.find(name)
-        if (aEmp != null) {
-            emps.add(aEmp)
-            val supervisorId = aEmp.id
-            children = supervisorId.let { employeeUseCase.findEmployeesBySupervisorId(it) }!!
-            children.forEach {
-                val list = getHierarchyPerEmployee(it.name)
-                emps.addAll(list)
-            }
-        }
-        //printHierarchy(emps)
-        return emps
-    }
 
     private fun getHierarchy(employee: Employee): Map<String, Any> {
 
@@ -113,15 +96,20 @@ class RelationshipUseCase {
 
         val aEmp = employeeUseCase.find(employee.name)
         if (aEmp != null) {
-
             val supervisorId = aEmp.id
             children = supervisorId.let { employeeUseCase.findEmployeesBySupervisorId(it) }
             if (children?.isEmpty() == true) {
                 return mutableMapOf(employee.name to emptyList)
             } else {
                 children?.map {
-                    result[employee.name] = getHierarchy(it)
+                    val empl = getHierarchy(it)
+                    if (result[employee.name] == null)
+                        result[employee.name] = empl
+                    else {
+                        result[employee.name] = mutableSetOf(result[employee.name], empl)
+                    }
                 }
+
             }
         }
         return result
