@@ -16,20 +16,5 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
         naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-  jackson:
-    parser:
-      STRICT_DUPLICATE_DETECTION: true
 jwt:
   secret: OneNotReallyGoodSecret
-
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: INFO
-
-
-      springframework:
-        security:
-          web:
-            FilterChainProxy: DEBUG

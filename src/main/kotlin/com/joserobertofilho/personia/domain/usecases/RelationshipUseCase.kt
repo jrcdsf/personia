@@ -1,9 +1,8 @@
 package com.joserobertofilho.personia.domain.usecases
 
 import com.joserobertofilho.personia.domain.entities.Employee
-import com.joserobertofilho.personia.domain.exceptions.HierarchyWithLoopException
-import com.joserobertofilho.personia.domain.exceptions.MultipleSeniorEmployeeFoundException
 import com.joserobertofilho.personia.domain.exceptions.SeniorEmployeeNotFoundException
+import com.joserobertofilho.personia.domain.validation.Validator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -12,6 +11,9 @@ class RelationshipUseCase {
 
     @Autowired
     lateinit var employeeUseCase: EmployeeUseCase
+
+    @Autowired
+    lateinit var validators: Set<Validator>
 
     fun createRelationships(relationships: Map<String, String>): MutableMap<String, Set<String>> {
         validate(relationships)
@@ -40,32 +42,8 @@ class RelationshipUseCase {
     }
 
     private fun validate(relationships: Map<String, String>) {
-        detectLoop(relationships)
-        detectMultipleSeniors(relationships)
+        validators.forEach { it.validate(relationships) }
     }
-
-    private fun detectMultipleSeniors(relationships: Map<String, String>) {
-        val supervisors = relationships.values
-        var numberOfSupervisors = 0
-        val seniorSupervisorList: MutableSet<String> = mutableSetOf()
-        supervisors.forEach { supervisor ->
-            if (relationships.filterKeys { it == supervisor }.isEmpty()) {
-                seniorSupervisorList.add(supervisor)
-                numberOfSupervisors++
-            }
-        }
-        if (numberOfSupervisors > 1)
-            throw MultipleSeniorEmployeeFoundException("Found more than 1 senior supervisor - $seniorSupervisorList")
-    }
-
-    private fun detectLoop(relationships: Map<String, String>) {
-        relationships.forEach { (key, value) ->
-            if (relationships.filter { it.key == value && it.value == key }.isNotEmpty()) {
-                throw HierarchyWithLoopException("Loop detected for employee $key")
-            }
-        }
-    }
-
 
     fun getHierarchyPerEmployee(name: String): Set<Employee> {
         val emps: MutableSet<Employee> = mutableSetOf()
