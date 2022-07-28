@@ -20,11 +20,12 @@ class EmployeeController {
     }
 
     @GetMapping
-    fun getHierarchyByEmployee(@RequestParam(required = false, defaultValue = "") name: String,): ResponseEntity<Set<Employee>>{
+    fun getHierarchyByEmployee(@RequestParam(required = false, defaultValue = "") name: String,): ResponseEntity<Map<String, Any>>{
         return if (name.isEmpty()) {
             ResponseEntity(usecase.getFullHierarchy(), HttpStatus.OK)
         } else {
-            ResponseEntity(usecase.getHierarchyPerEmployee(name), HttpStatus.OK)
+            ResponseEntity(usecase.getSupervisorsEmployee(name), HttpStatus.OK)
         }
     }
+
 }

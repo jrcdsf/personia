@@ -1,6 +1,7 @@
 package com.joserobertofilho.personia.domain.usecases
 
 import com.joserobertofilho.personia.domain.entities.Employee
+import com.joserobertofilho.personia.domain.exceptions.EmployeeNotFoundException
 import com.joserobertofilho.personia.domain.exceptions.SeniorEmployeeNotFoundException
 import com.joserobertofilho.personia.domain.validation.Validator
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,7 +27,7 @@ class RelationshipUseCase {
         }
         hierarchy.forEach { relation ->
             val supervisor = employeeUseCase.addEmployee(Employee(name = relation.key, supervisorId = null))
-            println(supervisor)
+
             var newEmployee: Employee?
             relation.value.forEach {
                 val foundEmployee = employeeUseCase.find(it)
@@ -35,7 +36,6 @@ class RelationshipUseCase {
                     newEmployee = employeeUseCase.addEmployee(foundEmployee)
                 } else newEmployee = employeeUseCase.addEmployee(Employee(name = it, supervisorId = supervisor.id))
 
-                print(newEmployee)
             }
         }
         return hierarchy
@@ -45,45 +45,69 @@ class RelationshipUseCase {
         validators.forEach { it.validate(relationships) }
     }
 
-    fun getHierarchyPerEmployee(name: String): Set<Employee> {
-        val emps: MutableSet<Employee> = mutableSetOf()
-        val children: Set<Employee>
-
-        val aEmp = employeeUseCase.find(name)
-        if (aEmp != null) {
-            emps.add(aEmp)
-            val supervisorId = aEmp.id
-            children = supervisorId.let { employeeUseCase.findEmployeesBySupervisorId(it) }!!
-            children.forEach {
-                val list = getHierarchyPerEmployee(it.name)
-                emps.addAll(list)
+    fun getSupervisorsEmployee(name: String): Map<String, Any> {
+        val aEmployee = employeeUseCase.find(name)
+        return if (aEmployee != null) {
+            val all = employeeUseCase.findAll()
+            if (all != null ) {
+                val supervisors = getSupervisors(all, aEmployee)
+                supervisors
+            } else {
+                emptyMap()
             }
+
+        } else {
+            throw EmployeeNotFoundException("Employee $name not found")
         }
-        //printHierarchy(emps)
-        return emps
     }
 
     fun printHierarchy(employees: Set<Employee>) {
         val root = employees.first()
-        val worksforroot = employees.filter { it.supervisorId == root.id }
-        val nonSupervisors = employees.forEach { emp ->
-            employees.filter { it.supervisorId == emp.id }
-        }
-        if (worksforroot.size > 1) {
-
-        } else {
-            val emp = worksforroot[0]
-        }
+        //val worksforroot = employees.filter { it.supervisorId == root.id }
+        val worksforroot = getChildren(employees, root)
+        //println("root $root")
+        println("worksforroot $worksforroot")
 
     }
 
-    fun getFullHierarchy(): Set<Employee> {
+    fun getChildren(employees: Set<Employee>, employee: Employee): Map<String, Any> {
+        val emps = employees.filter { it.supervisorId == employee.id }.toSet()
+        val result: MutableMap<String, Any> = mutableMapOf()
+        if (emps.isEmpty()) {
+            return mutableMapOf(employee.name to emptyList<String>())
+        } else {
+            result[employee.name] = emps.map { it.name }
+        }
+        return result
+    }
+
+    fun getSupervisors(employees: Set<Employee>, employee: Employee) : Map<String, Any> {
+        val supervisor = employees.firstOrNull { it.id == employee.supervisorId }
+        val senior = employees.firstOrNull { it.id == supervisor?.supervisorId }
+        val result: MutableMap<String, Any> = mutableMapOf()
+        val emptyList = mutableListOf<String>()
+        val empEntry: Map<String, Any> = mutableMapOf(employee.name to emptyList)
+
+        if (senior != null) {
+            val supervisorEntry: Map<String?, Any> = mutableMapOf(supervisor?.name to empEntry)
+            result[senior.name] = supervisorEntry
+        }
+        else if (supervisor != null)
+            result[supervisor.name] = empEntry
+        else
+            result[employee.name] = emptyList
+        return result
+    }
+
+
+    fun getFullHierarchy(): Map<String, Any> {
         val senior = employeeUseCase.findSeniorEmployee()
         if (senior != null) {
-            return getHierarchyPerEmployee(senior.name)
+            val employees = getSupervisorsEmployee(senior.name)
+            //printHierarchy(employees)
+            return emptyMap()
         } else {
             throw SeniorEmployeeNotFoundException("No senior supervisor found!")
         }
-
     }
 }
