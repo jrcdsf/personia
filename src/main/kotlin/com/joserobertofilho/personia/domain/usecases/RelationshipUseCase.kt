@@ -6,6 +6,7 @@ import com.joserobertofilho.personia.domain.exceptions.SeniorEmployeeNotFoundExc
 import com.joserobertofilho.personia.domain.validation.Validator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import java.util.Objects
 
 @Component
 class RelationshipUseCase {
@@ -85,7 +86,7 @@ class RelationshipUseCase {
         val supervisor = employees.firstOrNull { it.id == employee.supervisorId }
         val senior = employees.firstOrNull { it.id == supervisor?.supervisorId }
         val result: MutableMap<String, Any> = mutableMapOf()
-        val emptyList = mutableListOf<String>()
+        val emptyList = mutableMapOf<String, String>()
         val empEntry: Map<String, Any> = mutableMapOf(employee.name to emptyList)
 
         if (senior != null) {
