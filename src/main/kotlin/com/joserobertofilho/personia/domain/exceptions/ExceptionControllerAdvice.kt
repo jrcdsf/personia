@@ -45,4 +45,13 @@ class ExceptionControllerAdvice {
         )
         return ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST)
     }
+
+    @ExceptionHandler
+    fun handleEmployeeNotFoundException(ex: EmployeeNotFoundException): ResponseEntity<BusinessException> {
+        val errorMessage = BusinessException(
+            HttpStatus.NOT_FOUND.value(),
+            ex.message
+        )
+        return ResponseEntity(errorMessage, HttpStatus.NOT_FOUND)
+    }
 }
