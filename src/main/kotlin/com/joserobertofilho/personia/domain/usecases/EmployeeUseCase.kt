@@ -31,6 +31,6 @@ class EmployeeUseCase {
     }
 
     fun findSeniorEmployee(): Employee? {
-        return service.findSeniorEmployee()
+        return service.findSeniorSupervisor()
     }
 }

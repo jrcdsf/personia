@@ -54,4 +54,13 @@ class ExceptionControllerAdvice {
         )
         return ResponseEntity(errorMessage, HttpStatus.NOT_FOUND)
     }
+
+    @ExceptionHandler
+    fun handleSeniorSupervisorNotFoundException(ex: SeniorSupervisorNotFoundException): ResponseEntity<BusinessException> {
+        val errorMessage = BusinessException(
+            HttpStatus.NOT_FOUND.value(),
+            ex.message
+        )
+        return ResponseEntity(errorMessage, HttpStatus.NOT_FOUND)
+    }
 }

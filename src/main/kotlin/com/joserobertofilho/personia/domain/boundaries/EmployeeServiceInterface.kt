@@ -9,6 +9,6 @@ interface EmployeeServiceInterface {
     fun find(name: String) : Employee?
     fun findAll() : Set<Employee>?
     fun findEmployeesBySupervisorId(supervisorId: Long): Set<Employee>?
-    fun findSeniorEmployee(): Employee?
+    fun findSeniorSupervisor(): Employee?
 
 }

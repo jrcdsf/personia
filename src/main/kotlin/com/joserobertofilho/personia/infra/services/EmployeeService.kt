@@ -37,8 +37,8 @@ class EmployeeService : EmployeeServiceInterface {
             ?.toSet()
     }
 
-    override fun findSeniorEmployee(): Employee? {
-        return employeeRepository.findSeniorEmployee()?.let { employeeMapper.convertToEmployee(it) }
+    override fun findSeniorSupervisor(): Employee? {
+        return employeeRepository.findSeniorSupervisor()?.let { employeeMapper.convertToEmployee(it) }
     }
 
 

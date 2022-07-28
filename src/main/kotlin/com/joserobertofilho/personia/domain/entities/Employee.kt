@@ -3,4 +3,5 @@ package com.joserobertofilho.personia.domain.entities
 data class Employee(
     val id: Long = 0,
     val name: String,
-    var supervisorId: Long?)
+    var supervisorId: Long?,
+    var isSupervisor: Boolean = false)

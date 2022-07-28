@@ -1,6 +1,5 @@
 package com.joserobertofilho.personia.controllers
 
-import com.joserobertofilho.personia.domain.entities.Employee
 import com.joserobertofilho.personia.domain.usecases.RelationshipUseCase
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -15,16 +14,18 @@ class EmployeeController {
     lateinit var usecase: RelationshipUseCase
 
     @PostMapping
-    fun createRelationships(@RequestBody relationships: Map<String, String>): ResponseEntity<MutableMap<String, Set<String>>> {
-        return ResponseEntity(usecase.createRelationships(relationships), HttpStatus.CREATED)
+    fun createRelationships(@RequestBody relationships: Map<String, String>): ResponseEntity<String> {
+        return if (usecase.createRelationships(relationships).isNotEmpty())
+            ResponseEntity("Employees hierarchy successfully created", HttpStatus.CREATED)
+        else ResponseEntity("API failure - cannot create the employees hierarchy", HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
     @GetMapping
-    fun getHierarchyByEmployee(@RequestParam(required = false, defaultValue = "") name: String,): ResponseEntity<Map<String, Any>>{
+    fun findEmployeeHierarchy(@RequestParam(required = false, defaultValue = "") name: String,): ResponseEntity<Map<String, Any>>{
         return if (name.isEmpty()) {
             ResponseEntity(usecase.getFullHierarchy(), HttpStatus.OK)
         } else {
-            ResponseEntity(usecase.getSupervisorsEmployee(name), HttpStatus.OK)
+            ResponseEntity(usecase.getSupervisorAndSeniorSupervisorByEmployee(name), HttpStatus.OK)
         }
     }
 

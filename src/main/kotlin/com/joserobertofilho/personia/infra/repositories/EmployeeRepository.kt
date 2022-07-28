@@ -25,7 +25,7 @@ interface EmployeeRepository : JpaRepository<EmployeeEntity, Long> {
     fun findEmployeesBySupervisorId(supervisorId: Long): Set<EmployeeEntity>?
 
     @Query(value = "select * from employee where supervisor_id is null", nativeQuery = true)
-    fun findSeniorEmployee(): EmployeeEntity?
+    fun findSeniorSupervisor(): EmployeeEntity?
 
 
 }

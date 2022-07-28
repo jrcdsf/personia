@@ -14,5 +14,8 @@ data class EmployeeEntity(
     val name: String ="",
 
     @Column(name = "supervisor_id")
-    val supervisorId: Long? = null
+    val supervisorId: Long? = null,
+
+    @Column(name = "is_supervisor" , nullable = false)
+    val isSupervisor: Boolean = false
     )
