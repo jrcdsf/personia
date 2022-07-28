@@ -1,0 +1,35 @@
+
+spring.datasource:
+  url: jdbc:postgresql://localhost:5432/postgres?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  username: postgres
+  password: postgres1234
+  driverClassName: org.postgresql.Driver
+
+spring.jpa.hibernate:
+  show-sql: true
+  ddl-auto: create-drop
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  jackson:
+    parser:
+      STRICT_DUPLICATE_DETECTION: true
+jwt:
+  secret: OneNotReallyGoodSecret
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: INFO
+
+
+      springframework:
+        security:
+          web:
+            FilterChainProxy: DEBUG
