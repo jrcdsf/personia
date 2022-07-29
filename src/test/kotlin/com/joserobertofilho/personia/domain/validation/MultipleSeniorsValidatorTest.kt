@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 internal class MultipleSeniorsValidatorTest {
 
-    private val responseBodyWithMultipleSeniors = """{
+    private val bodyWithMultipleSeniors = """{
             "Pete": "Nick",
             "Barbara": "Nick",
             "Nick": "Sophie",
@@ -16,7 +16,7 @@ internal class MultipleSeniorsValidatorTest {
             "Chan": "Patrick"
          }"""
 
-    private val responseBodyWithoutMultipleSeniors = """{
+    private val bodyWithoutMultipleSeniors = """{
             "Pete": "Nick",
             "Barbara": "Nick",
             "Nick": "Sophie",
@@ -25,7 +25,7 @@ internal class MultipleSeniorsValidatorTest {
 
     @Test
     fun given_payload_with_multiple_seniors_then_should_throw_exception() {
-        val payload = ObjectMapper().readValue<MutableMap<String, String>>(responseBodyWithMultipleSeniors)
+        val payload = ObjectMapper().readValue<MutableMap<String, String>>(bodyWithMultipleSeniors)
         assertThrows(MultipleSeniorEmployeesFoundException::class.java) {
             MultipleSeniorsValidator().validate(payload)
         }
@@ -33,7 +33,7 @@ internal class MultipleSeniorsValidatorTest {
 
     @Test
     fun given_payload_without_multiple_seniors_then_should_pass() {
-        val payload = ObjectMapper().readValue<MutableMap<String, String>>(responseBodyWithoutMultipleSeniors)
+        val payload = ObjectMapper().readValue<MutableMap<String, String>>(bodyWithoutMultipleSeniors)
         MultipleSeniorsValidator().validate(payload)
     }
 }

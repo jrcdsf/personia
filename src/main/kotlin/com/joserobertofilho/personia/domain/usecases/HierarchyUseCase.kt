@@ -66,11 +66,11 @@ class HierarchyUseCase {
         }
     }
 
-    private fun validate(relationships: Map<String, String>) {
+    protected fun validate(relationships: Map<String, String>) {
         validators.forEach { it.validate(relationships) }
     }
 
-    private fun getSupervisorAndSeniorSupervisorByEmployee(
+    protected fun getSupervisorAndSeniorSupervisorByEmployee(
         employees: Set<Employee>,
         employee: Employee
     ): Map<String, Any> {
@@ -90,7 +90,7 @@ class HierarchyUseCase {
         return result
     }
 
-    private fun getHierarchy(employee: Employee): Map<String, Any> {
+    protected fun getHierarchy(employee: Employee): Map<String, Any> {
 
         val children: Set<Employee>?
         val result: MutableMap<String, Any> = mutableMapOf()

@@ -12,7 +12,7 @@ management:
 
 # --------------------------- Database --------------------------- #
 spring.datasource:
-  url: ${DATABASE_URL:localhost}:${DATABASE_PORT:5432}/${DATABASE_SCHEMA:postgres}?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  url: ${DATABASE_URL:jdbc:postgresql://localhost}:${DATABASE_PORT:5432}/${DATABASE_SCHEMA:postgres}?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
   username: ${DATABASE_USER:postgres}
   password: ${DATABASE_PASSWORD:postgres1234}
   driverClassName: org.postgresql.Driver

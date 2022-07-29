@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 
 internal class LoopValidatorTest {
 
-    private val responseBodyWithLoop = """{
+    private val bodyWithLoop = """{
             "Pete": "Nick",
             "Barbara": "Nick",
             "Nick": "Sophie",
@@ -16,7 +16,7 @@ internal class LoopValidatorTest {
             "Jonas": "Sophie"
          }"""
 
-    private val responseBodyWithoutLoop = """{
+    private val bodyWithoutLoop = """{
             "Pete": "Nick",
             "Barbara": "Nick",
             "Nick": "Sophie",
@@ -25,7 +25,7 @@ internal class LoopValidatorTest {
 
     @Test
     fun given_payload_with_loop_then_should_throw_exception() {
-        val payload = ObjectMapper().readValue<MutableMap<String, String>>(responseBodyWithLoop)
+        val payload = ObjectMapper().readValue<MutableMap<String, String>>(bodyWithLoop)
         assertThrows(HierarchyWithLoopException::class.java) {
             LoopValidator().validate(payload)
         }
@@ -33,7 +33,7 @@ internal class LoopValidatorTest {
 
     @Test
     fun given_payload_without_loop_then_should_pass() {
-        val payload = ObjectMapper().readValue<MutableMap<String, String>>(responseBodyWithoutLoop)
+        val payload = ObjectMapper().readValue<MutableMap<String, String>>(bodyWithoutLoop)
         LoopValidator().validate(payload)
     }
 }

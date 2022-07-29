@@ -20,16 +20,17 @@ internal class EmployeeUseCaseTest {
     @InjectMockKs
     lateinit var employeeUseCase: EmployeeUseCase
 
-    private val employee = Employee(10, "test", 5)
+    private val employee = Employee(1, "test 1", 5)
 
-    private val employees = mutableSetOf(Employee(1, "test 1", 2), Employee(2, "test 2", 5))
+    private val anotherEmployee = Employee(2, "test 2", 5)
 
     private val supervisor = Employee(5, "supervisor", 10, true)
 
-    private val employeesUnderSupervisor =
-        mutableSetOf(Employee(1, "test 1", supervisor.id), Employee(2, "test 2", supervisor.id))
+    private val employeesUnderSupervisor = mutableSetOf(employee, anotherEmployee)
 
-    private val senior = Employee(5, "supervisor", null, true)
+    private val senior = Employee(10, "supervisor", null, true)
+
+    private val allEmployees = mutableSetOf(employee, supervisor, senior)
 
     @BeforeEach
     fun init() {
@@ -58,12 +59,12 @@ internal class EmployeeUseCaseTest {
 
     @Test
     fun find_all_employees_should_return_list_of_employees() {
-        every { mockedService.findAll() } returns employees
+        every { mockedService.findAll() } returns allEmployees
 
         val actual = employeeUseCase.findAll()
 
         verify(exactly = 1) { mockedService.findAll() }
-        assertIterableEquals(employees, actual)
+        assertIterableEquals(allEmployees, actual)
     }
 
     @Test
