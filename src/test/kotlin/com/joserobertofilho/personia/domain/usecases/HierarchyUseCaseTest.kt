@@ -26,6 +26,10 @@ internal class HierarchyUseCaseTest {
                 employee
             )
         }
+
+        fun testGetHierarchy(): Map<String, Any> {
+            return super.getHierarchy(employee)
+        }
     }
 
     private lateinit var wrapper: WrapperHierarchyUseCase
@@ -102,6 +106,7 @@ internal class HierarchyUseCaseTest {
 
     @Test
     fun getFullHierarchy() {
+        every { mockedEmployeeUseCase.findSeniorSupervisor() } returns senior
 
     }
 
