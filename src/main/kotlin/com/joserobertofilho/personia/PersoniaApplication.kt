@@ -9,5 +9,5 @@ import org.springframework.boot.runApplication
 class PersoniaApplication
 
 fun main(args: Array<String>) {
-	runApplication<PersoniaApplication>(*args)
+    runApplication<PersoniaApplication>(*args)
 }

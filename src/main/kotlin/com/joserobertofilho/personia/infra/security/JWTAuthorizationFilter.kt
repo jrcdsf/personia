@@ -16,7 +16,11 @@ class JWTAuthorizationFilter : BasicAuthenticationFilter {
     private var jwtUtil: JWTUtil
     private var userDetailService: UserDetailsService
 
-    constructor(authenticationManager: AuthenticationManager, jwtUtil: JWTUtil, userDetailService: UserDetailsService) : super(authenticationManager) {
+    constructor(
+        authenticationManager: AuthenticationManager,
+        jwtUtil: JWTUtil,
+        userDetailService: UserDetailsService
+    ) : super(authenticationManager) {
         this.jwtUtil = jwtUtil
         this.userDetailService = userDetailService
     }
@@ -24,7 +28,7 @@ class JWTAuthorizationFilter : BasicAuthenticationFilter {
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
         val authorizationHeader = request.getHeader("Authorization")
 
-        if(authorizationHeader.startsWith("Bearer")) {
+        if (authorizationHeader.startsWith("Bearer")) {
             val auth = getAuthentication(authorizationHeader)
             SecurityContextHolder.getContext().authentication = auth
         }
@@ -34,7 +38,7 @@ class JWTAuthorizationFilter : BasicAuthenticationFilter {
 
     private fun getAuthentication(authorizationHeader: String?): UsernamePasswordAuthenticationToken {
         val token = authorizationHeader?.substring(7) ?: ""
-        if(jwtUtil.isTokenValid(token)) {
+        if (jwtUtil.isTokenValid(token)) {
             val username = jwtUtil.getUserName(token)
             val user = userDetailService.loadUserByUsername(username)
             return UsernamePasswordAuthenticationToken(user, null, user.authorities)

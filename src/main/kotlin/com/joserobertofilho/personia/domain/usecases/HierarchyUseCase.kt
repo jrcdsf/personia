@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class RelationshipUseCase {
+class HierarchyUseCase {
 
     @Autowired
     lateinit var employeeUseCase: EmployeeUseCase
@@ -16,7 +16,7 @@ class RelationshipUseCase {
     @Autowired
     lateinit var validators: Set<Validator>
 
-    fun createRelationships(relationships: Map<String, String>): MutableMap<String, Set<String>> {
+    fun createHierarchy(relationships: Map<String, String>): MutableMap<String, Set<String>> {
         validate(relationships)
         val hierarchy: MutableMap<String, Set<String>> = mutableMapOf()
         relationships.forEach { (emp, sup) ->
@@ -26,7 +26,8 @@ class RelationshipUseCase {
                 hierarchy[sup] = mutableSetOf(emp)
         }
         hierarchy.forEach { relation ->
-            val supervisor = employeeUseCase.addEmployee(Employee(name = relation.key, supervisorId = null, isSupervisor = true))
+            val supervisor =
+                employeeUseCase.addEmployee(Employee(name = relation.key, supervisorId = null, isSupervisor = true))
 
             var newEmployee: Employee?
             relation.value.forEach {
@@ -39,10 +40,6 @@ class RelationshipUseCase {
             }
         }
         return hierarchy
-    }
-
-    private fun validate(relationships: Map<String, String>) {
-        validators.forEach { it.validate(relationships) }
     }
 
     fun getSupervisorAndSeniorSupervisorByEmployee(name: String): Map<String, Any> {
@@ -60,18 +57,23 @@ class RelationshipUseCase {
         }
     }
 
-    private fun getChildren(employees: Set<Employee>, employee: Employee): Map<String, Any> {
-        val emps = employees.filter { it.supervisorId == employee.id }.toSet()
-        val result: MutableMap<String, Any> = mutableMapOf()
-        if (emps.isEmpty()) {
-            return mutableMapOf(employee.name to emptyList<String>())
+    fun getFullHierarchy(): Map<String, Any>? {
+        val senior = employeeUseCase.findSeniorSupervisor()
+        if (senior != null) {
+            return getHierarchy(senior)
         } else {
-            result[employee.name] = emps.map { it.name }
+            throw SeniorSupervisorNotFoundException("No senior supervisor found!")
         }
-        return result
     }
 
-    private fun getSupervisorAndSeniorSupervisorByEmployee(employees: Set<Employee>, employee: Employee): Map<String, Any> {
+    private fun validate(relationships: Map<String, String>) {
+        validators.forEach { it.validate(relationships) }
+    }
+
+    private fun getSupervisorAndSeniorSupervisorByEmployee(
+        employees: Set<Employee>,
+        employee: Employee
+    ): Map<String, Any> {
         val supervisor = employees.firstOrNull { it.id == employee.supervisorId }
         val senior = employees.firstOrNull { it.id == supervisor?.supervisorId }
         val result: MutableMap<String, Any> = mutableMapOf()
@@ -113,15 +115,5 @@ class RelationshipUseCase {
             }
         }
         return result
-    }
-
-    fun getFullHierarchy(): Map<String, Any>? {
-        val senior = employeeUseCase.findSeniorSupervisor()
-        if (senior != null) {
-            val hierarcy = getHierarchy(senior)
-            return hierarcy
-        } else {
-            throw SeniorSupervisorNotFoundException("No senior supervisor found!")
-        }
     }
 }

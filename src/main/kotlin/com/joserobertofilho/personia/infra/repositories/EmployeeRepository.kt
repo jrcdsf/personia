@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface EmployeeRepository : JpaRepository<EmployeeEntity, Long> {
-    fun findByName(name: String) : EmployeeEntity?
+    fun findByName(name: String): EmployeeEntity?
 
     @Query(
         value = "select e.\"name\", m.\"name\" as manager, mm.\"name\" as senior from employee e left join employee m on m.id = e.supervisor_id left join employee mm on mm.id = m.supervisor_id where e.\"name\" = ?1",

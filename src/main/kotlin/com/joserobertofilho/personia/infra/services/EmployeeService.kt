@@ -33,7 +33,8 @@ class EmployeeService : EmployeeServiceInterface {
     }
 
     override fun findEmployeesBySupervisorId(supervisorId: Long): Set<Employee>? {
-        return employeeRepository.findEmployeesBySupervisorId(supervisorId)?.map { employeeMapper.convertToEmployee(it) }
+        return employeeRepository.findEmployeesBySupervisorId(supervisorId)
+            ?.map { employeeMapper.convertToEmployee(it) }
             ?.toSet()
     }
 

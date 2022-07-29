@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration
 class JacksonConfig {
 
     @Bean
-    fun objectMapper() : ObjectMapper {
+    fun objectMapper(): ObjectMapper {
         val mapper = ObjectMapper()
         mapper.enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION)
         return mapper

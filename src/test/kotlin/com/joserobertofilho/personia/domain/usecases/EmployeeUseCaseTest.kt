@@ -26,7 +26,8 @@ internal class EmployeeUseCaseTest {
 
     private val supervisor = Employee(5, "supervisor", 10, true)
 
-    private val employeesUnderSupervisor = mutableSetOf(Employee(1, "test 1", supervisor.id), Employee(2, "test 2", supervisor.id))
+    private val employeesUnderSupervisor =
+        mutableSetOf(Employee(1, "test 1", supervisor.id), Employee(2, "test 2", supervisor.id))
 
     private val senior = Employee(5, "supervisor", null, true)
 

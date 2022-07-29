@@ -11,14 +11,15 @@ class EmployeeUseCase {
     @Autowired
     lateinit var service: EmployeeServiceInterface
 
-    fun addEmployee(employee: Employee) : Employee {
+    fun addEmployee(employee: Employee): Employee {
         return service.add(employee)
     }
-    fun find(name: String) : Employee? {
+
+    fun find(name: String): Employee? {
         return service.find(name)
     }
 
-    fun findAll() : Set<Employee>? {
+    fun findAll(): Set<Employee>? {
         return service.findAll()
     }
 

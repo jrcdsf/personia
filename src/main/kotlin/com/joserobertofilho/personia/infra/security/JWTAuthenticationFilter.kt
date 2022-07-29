@@ -13,7 +13,7 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthenticationFilter: UsernamePasswordAuthenticationFilter {
+class JWTAuthenticationFilter : UsernamePasswordAuthenticationFilter {
 
     private var jwtUtil: JWTUtil
     private val objectMapper: ObjectMapper
@@ -36,7 +36,12 @@ class JWTAuthenticationFilter: UsernamePasswordAuthenticationFilter {
         }
     }
 
-    override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse, chain: FilterChain?, authResult: Authentication) {
+    override fun successfulAuthentication(
+        request: HttpServletRequest?,
+        response: HttpServletResponse,
+        chain: FilterChain?,
+        authResult: Authentication
+    ) {
         val username = (authResult.principal as UserDetailsImpl).username
         val token = jwtUtil.generateToken(username)
         response.addHeader("Authorization", "Bearer $token")

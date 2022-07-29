@@ -4,4 +4,5 @@ data class Employee(
     val id: Long = 0,
     val name: String,
     var supervisorId: Long?,
-    var isSupervisor: Boolean = false)
+    var isSupervisor: Boolean = false
+)

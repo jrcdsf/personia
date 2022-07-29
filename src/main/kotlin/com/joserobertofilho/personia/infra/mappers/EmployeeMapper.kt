@@ -10,8 +10,14 @@ class EmployeeMapper {
         return EmployeeEntity(employee.id, employee.name, employee.supervisorId, employee.isSupervisor)
 
     }
+
     fun convertToEmployee(employeeEntity: EmployeeEntity): Employee {
-        return Employee(employeeEntity.id, employeeEntity.name, employeeEntity.supervisorId, employeeEntity.isSupervisor)
+        return Employee(
+            employeeEntity.id,
+            employeeEntity.name,
+            employeeEntity.supervisorId,
+            employeeEntity.isSupervisor
+        )
     }
 
 }
