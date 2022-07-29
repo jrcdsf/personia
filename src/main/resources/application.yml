@@ -12,9 +12,9 @@ management:
 
 # --------------------------- Database --------------------------- #
 spring.datasource:
-  url: jdbc:postgresql://${db.host:localhost}:${db.port:5432}/${db.schema:postgres}?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-  username: ${db.username:postgres}
-  password: ${db.password:postgres1234}
+  url: ${DATABASE_URL:localhost}:${DATABASE_PORT:5432}/${DATABASE_SCHEMA:postgres}?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  username: ${DATABASE_USER:postgres}
+  password: ${DATABASE_PASSWORD:postgres1234}
   driverClassName: org.postgresql.Driver
 
 spring.jpa.hibernate:
