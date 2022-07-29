@@ -38,7 +38,7 @@ class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler
-    fun handleMultipleSeniorSupervisorsException(ex: MultipleSeniorEmployeeFoundException): ResponseEntity<BusinessException> {
+    fun handleMultipleSeniorSupervisorsException(ex: MultipleSeniorEmployeesFoundException): ResponseEntity<BusinessException> {
         val errorMessage = BusinessException(
             HttpStatus.BAD_REQUEST.value(),
             ex.message

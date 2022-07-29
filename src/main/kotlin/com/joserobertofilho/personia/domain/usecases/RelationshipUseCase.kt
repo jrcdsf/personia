@@ -116,7 +116,7 @@ class RelationshipUseCase {
     }
 
     fun getFullHierarchy(): Map<String, Any>? {
-        val senior = employeeUseCase.findSeniorEmployee()
+        val senior = employeeUseCase.findSeniorSupervisor()
         if (senior != null) {
             val hierarcy = getHierarchy(senior)
             return hierarcy

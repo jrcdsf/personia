@@ -1,6 +1,6 @@
 package com.joserobertofilho.personia.domain.validation
 
-import com.joserobertofilho.personia.domain.exceptions.MultipleSeniorEmployeeFoundException
+import com.joserobertofilho.personia.domain.exceptions.MultipleSeniorEmployeesFoundException
 
 class MultipleSeniorsValidator : Validator {
     override fun validate(relationships: Map<String, String>) {
@@ -14,6 +14,6 @@ class MultipleSeniorsValidator : Validator {
             }
         }
         if (numberOfSupervisors > 1)
-            throw MultipleSeniorEmployeeFoundException("Found more than 1 senior supervisor - $seniorSupervisorList")
+            throw MultipleSeniorEmployeesFoundException("Found more than 1 senior supervisor - $seniorSupervisorList")
     }
 }

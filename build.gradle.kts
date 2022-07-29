@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-	//implementation("org.springframework.boot:spring-boot-starter-security")
+
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -26,6 +26,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.0")
 	implementation("org.springframework.boot:spring-boot-starter-validation:2.7.0")
 	implementation("org.springframework.boot:spring-boot-starter-security:2.7.0")
+	implementation("io.mockk:mockk:1.12.4")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("org.springframework.boot:spring-boot-starter-test:2.7.0")

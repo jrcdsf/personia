@@ -18,10 +18,6 @@ class EmployeeUseCase {
         return service.find(name)
     }
 
-    fun find(id: Long) : Employee? {
-        return service.find(id)
-    }
-
     fun findAll() : Set<Employee>? {
         return service.findAll()
     }
@@ -30,7 +26,7 @@ class EmployeeUseCase {
         return service.findEmployeesBySupervisorId(supervisorId)
     }
 
-    fun findSeniorEmployee(): Employee? {
+    fun findSeniorSupervisor(): Employee? {
         return service.findSeniorSupervisor()
     }
 }
