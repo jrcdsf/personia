@@ -1,12 +1,12 @@
 package com.joserobertofilho.personia.domain.validation
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.joserobertofilho.personia.domain.exceptions.HierarchyWithLoopException
+import com.joserobertofilho.personia.helpers.BaseTest
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 
-internal class LoopValidatorTest {
+internal class LoopValidatorTest : BaseTest() {
 
     private val bodyWithLoop = """{
             "Pete": "Nick",
@@ -25,7 +25,7 @@ internal class LoopValidatorTest {
 
     @Test
     fun given_payload_with_loop_then_should_throw_exception() {
-        val payload = ObjectMapper().readValue<MutableMap<String, String>>(bodyWithLoop)
+        val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithLoop)
         assertThrows(HierarchyWithLoopException::class.java) {
             LoopValidator().validate(payload)
         }
@@ -33,7 +33,7 @@ internal class LoopValidatorTest {
 
     @Test
     fun given_payload_without_loop_then_should_pass() {
-        val payload = ObjectMapper().readValue<MutableMap<String, String>>(bodyWithoutLoop)
+        val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithoutLoop)
         LoopValidator().validate(payload)
     }
 }

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 class ExceptionControllerAdvice {
 
     @ExceptionHandler
-    fun handleIllegalStateException(ex: IllegalStateException): ResponseEntity<BusinessException> {
+    fun handleIllegalStateException(ex: IllegalStateException): ResponseEntity<Message> {
 
-        val errorMessage = BusinessException(
+        val errorMessage = Message(
             HttpStatus.NOT_FOUND.value(),
             ex.message
         )
@@ -20,8 +20,8 @@ class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler
-    fun handleHierarchyWithLoopException(ex: HierarchyWithLoopException): ResponseEntity<BusinessException> {
-        val errorMessage = BusinessException(
+    fun handleHierarchyWithLoopException(ex: HierarchyWithLoopException): ResponseEntity<Message> {
+        val errorMessage = Message(
             HttpStatus.BAD_REQUEST.value(),
             ex.message
         )
@@ -29,8 +29,8 @@ class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler
-    fun handleDuplicatedEmployeeException(ex: HttpMessageNotReadableException): ResponseEntity<BusinessException> {
-        val errorMessage = BusinessException(
+    fun handleDuplicatedEmployeeException(ex: HttpMessageNotReadableException): ResponseEntity<Message> {
+        val errorMessage = Message(
             HttpStatus.BAD_REQUEST.value(),
             ex.message
         )
@@ -38,8 +38,8 @@ class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler
-    fun handleMultipleSeniorSupervisorsException(ex: MultipleSeniorEmployeesFoundException): ResponseEntity<BusinessException> {
-        val errorMessage = BusinessException(
+    fun handleMultipleSeniorSupervisorsException(ex: MultipleSeniorEmployeesFoundException): ResponseEntity<Message> {
+        val errorMessage = Message(
             HttpStatus.BAD_REQUEST.value(),
             ex.message
         )
@@ -47,8 +47,8 @@ class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler
-    fun handleEmployeeNotFoundException(ex: EmployeeNotFoundException): ResponseEntity<BusinessException> {
-        val errorMessage = BusinessException(
+    fun handleEmployeeNotFoundException(ex: EmployeeNotFoundException): ResponseEntity<Message> {
+        val errorMessage = Message(
             HttpStatus.NOT_FOUND.value(),
             ex.message
         )
@@ -56,8 +56,8 @@ class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler
-    fun handleSeniorSupervisorNotFoundException(ex: SeniorSupervisorNotFoundException): ResponseEntity<BusinessException> {
-        val errorMessage = BusinessException(
+    fun handleSeniorSupervisorNotFoundException(ex: SeniorSupervisorNotFoundException): ResponseEntity<Message> {
+        val errorMessage = Message(
             HttpStatus.NOT_FOUND.value(),
             ex.message
         )

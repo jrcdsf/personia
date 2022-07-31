@@ -104,11 +104,5 @@ internal class HierarchyUseCaseTest {
         assertEquals(supervisorAndSenior, actual)
     }
 
-    @Test
-    fun getFullHierarchy() {
-        every { mockedEmployeeUseCase.findSeniorSupervisor() } returns senior
-
-    }
-
 
 }

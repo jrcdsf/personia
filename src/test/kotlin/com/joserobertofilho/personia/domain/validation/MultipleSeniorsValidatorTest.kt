@@ -1,12 +1,12 @@
 package com.joserobertofilho.personia.domain.validation
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.joserobertofilho.personia.domain.exceptions.MultipleSeniorEmployeesFoundException
+import com.joserobertofilho.personia.helpers.BaseTest
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 
-internal class MultipleSeniorsValidatorTest {
+internal class MultipleSeniorsValidatorTest : BaseTest() {
 
     private val bodyWithMultipleSeniors = """{
             "Pete": "Nick",
@@ -25,7 +25,7 @@ internal class MultipleSeniorsValidatorTest {
 
     @Test
     fun given_payload_with_multiple_seniors_then_should_throw_exception() {
-        val payload = ObjectMapper().readValue<MutableMap<String, String>>(bodyWithMultipleSeniors)
+        val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithMultipleSeniors)
         assertThrows(MultipleSeniorEmployeesFoundException::class.java) {
             MultipleSeniorsValidator().validate(payload)
         }
@@ -33,7 +33,7 @@ internal class MultipleSeniorsValidatorTest {
 
     @Test
     fun given_payload_without_multiple_seniors_then_should_pass() {
-        val payload = ObjectMapper().readValue<MutableMap<String, String>>(bodyWithoutMultipleSeniors)
+        val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithoutMultipleSeniors)
         MultipleSeniorsValidator().validate(payload)
     }
 }
