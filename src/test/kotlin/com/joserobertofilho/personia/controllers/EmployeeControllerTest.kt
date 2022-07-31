@@ -26,9 +26,10 @@ internal class EmployeeControllerTest : BaseTest() {
                 "Sophie": "Jonas"
             }"""
 
+    private val emptyPayload = """{}"""
 
     @Test
-    fun `POST a proper json to endpoint employees should return 200 and successful message`() {
+    fun `POST a proper body to endpoint employees should return 200 and successful message`() {
         mockMvc.post("/employees") {
             contentType = MediaType.APPLICATION_JSON
             content = payload
@@ -41,6 +42,26 @@ internal class EmployeeControllerTest : BaseTest() {
                     """{
                     "status": 201,
                     "message": "Employees hierarchy successfully created"
+                }"""
+                )
+            }
+        }
+    }
+
+    @Test
+    fun `POST en empty body to endpoint employees should return 400 and error message`() {
+        mockMvc.post("/employees") {
+            contentType = MediaType.APPLICATION_JSON
+            content = emptyPayload
+            accept = MediaType.APPLICATION_JSON
+        }.andExpect {
+            status { isBadRequest() }
+            content {
+                contentType(MediaType.APPLICATION_JSON)
+                json(
+                    """{
+                    "status": 400,
+                    "message": "Empty relationships provided as input"
                 }"""
                 )
             }

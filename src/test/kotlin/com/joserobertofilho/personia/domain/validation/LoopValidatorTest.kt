@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.joserobertofilho.personia.domain.exceptions.HierarchyWithLoopException
 import com.joserobertofilho.personia.helpers.BaseTest
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 internal class LoopValidatorTest : BaseTest() {
@@ -24,7 +25,7 @@ internal class LoopValidatorTest : BaseTest() {
          }"""
 
     @Test
-    fun given_payload_with_loop_then_should_throw_exception() {
+    fun `given payload with loop then should throw exception`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithLoop)
         assertThrows(HierarchyWithLoopException::class.java) {
             LoopValidator().validate(payload)
@@ -32,8 +33,8 @@ internal class LoopValidatorTest : BaseTest() {
     }
 
     @Test
-    fun given_payload_without_loop_then_should_pass() {
+    fun `given payload without loop then should return true`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithoutLoop)
-        LoopValidator().validate(payload)
+        assertTrue(LoopValidator().validate(payload))
     }
 }

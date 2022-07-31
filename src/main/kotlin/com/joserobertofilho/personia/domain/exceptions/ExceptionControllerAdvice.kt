@@ -63,4 +63,13 @@ class ExceptionControllerAdvice {
         )
         return ResponseEntity(errorMessage, HttpStatus.NOT_FOUND)
     }
+
+    @ExceptionHandler
+    fun handleEmptyRelationshipsException(ex: EmptyRelationshipsException): ResponseEntity<Message> {
+        val errorMessage = Message(
+            HttpStatus.BAD_REQUEST.value(),
+            ex.message
+        )
+        return ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST)
+    }
 }

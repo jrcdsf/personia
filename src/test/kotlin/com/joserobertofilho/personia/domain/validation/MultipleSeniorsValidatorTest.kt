@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.joserobertofilho.personia.domain.exceptions.MultipleSeniorEmployeesFoundException
 import com.joserobertofilho.personia.helpers.BaseTest
 import org.junit.jupiter.api.Assertions.assertThrows
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 internal class MultipleSeniorsValidatorTest : BaseTest() {
@@ -24,7 +25,7 @@ internal class MultipleSeniorsValidatorTest : BaseTest() {
          }"""
 
     @Test
-    fun given_payload_with_multiple_seniors_then_should_throw_exception() {
+    fun `given payload with multiple seniors then should throw exception`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithMultipleSeniors)
         assertThrows(MultipleSeniorEmployeesFoundException::class.java) {
             MultipleSeniorsValidator().validate(payload)
@@ -32,8 +33,8 @@ internal class MultipleSeniorsValidatorTest : BaseTest() {
     }
 
     @Test
-    fun given_payload_without_multiple_seniors_then_should_pass() {
+    fun `given payload without multiple seniors then should return true`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithoutMultipleSeniors)
-        MultipleSeniorsValidator().validate(payload)
+        assertTrue(MultipleSeniorsValidator().validate(payload))
     }
 }

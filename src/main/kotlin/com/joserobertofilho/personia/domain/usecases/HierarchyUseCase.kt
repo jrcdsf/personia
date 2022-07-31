@@ -17,7 +17,7 @@ class HierarchyUseCase {
     lateinit var validators: Set<Validator>
 
     fun createHierarchy(relationships: Map<String, String>): MutableMap<String, Set<String>> {
-        validate(relationships)
+        val validationStatus = validate(relationships)
         val hierarchy: MutableMap<String, Set<String>> = mutableMapOf()
         relationships.forEach { (emp, sup) ->
             if (hierarchy[sup] != null)
