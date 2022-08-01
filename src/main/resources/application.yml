@@ -29,9 +29,6 @@ spring:
           use_jdbc_metadata_defaults: false
         naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 
-# -------------------------- SECURITY -------------------------- #
-jwt:
-  secret: OneNotReallyGoodSecret
 
 # -------------------------- LOGGING -------------------------- #
 logging:
