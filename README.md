@@ -1,4 +1,4 @@
-# Personia Demo
+# Personia API Demo
 
 Author: Jose Roberto Filho (jrcdsf@gmail.com)
 Date: August 1 2022
@@ -16,7 +16,9 @@ Personia API is designed to validate and setup a company hierarchy and generate 
 
 `$ bash ./startup.sh`
 
-- Import the Postman collection present in folder ./postman/ 
+- Import the Postman DEV environment file present in folder ./postman/
+
+- Import the Postman collection file present in folder ./postman/ 
 
 - Use the option **Signup** to create a valid user:
 
@@ -39,7 +41,7 @@ JSON body:
 "password": "123456"
 }`
 
-NOTE: the token will be automatically set for the next options due to Postman automation
+NOTE: the token returned in the response will be automatically set for the next options due to Postman automation
 
 - Now you can use the option **Create hierarchy** to setup your company hierarchy:
 
@@ -56,23 +58,21 @@ JSON body:
 header: 
 `'Authorization: Bearer <token>`
 
-- Finally use the option **Generate employee reports** to generate a full hierarchy report or a report by employee:
+- Finally use the option **Generate employee reports** to generate a full hierarchy report or a hierarchy report by employee:
+  - Full hierarchy report:
 
+    GET http://localhost:8080/employees
+  
+    header:`Authorization: Bearer <token>`
+  - Employee hierarchy report
 
-GET http://localhost:8080/employees
+    GET http://localhost:8080/employees?name=<employee_name>
 
-header:
-`'Authorization: Bearer <token>`
+    header:`Authorization: Bearer <token>`
 
-GET http://localhost:8080/employees?name=Pete
-
-header:
-`'Authorization: Bearer <token>`
-
-
-
+    
 ## Technologies
 
-Java 11, Spring Boot, Spring Security, JWT, Postgresql, Gradle, Docker, Junit
+Java 11, Spring Boot, Spring Security, JWT, Postgresql, Gradle, Docker, Junit, Mockk
 
 
