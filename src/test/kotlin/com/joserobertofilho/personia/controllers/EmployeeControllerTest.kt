@@ -10,10 +10,12 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.web.servlet.function.RequestPredicates
+import javax.transaction.Transactional
 
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
+@Transactional
 internal class EmployeeControllerTest : BaseTest() {
 
     @Autowired
