@@ -38,5 +38,8 @@ class EmployeeService : EmployeeServiceInterface {
         return employeeRepository.findSeniorSupervisor()?.let { employeeMapper.convertToEmployee(it) }
     }
 
-
+    override fun resetEmployees(): Boolean {
+        employeeRepository.deleteAll()
+        return true
+    }
 }

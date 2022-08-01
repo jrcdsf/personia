@@ -30,4 +30,8 @@ class EmployeeUseCase {
     fun findSeniorSupervisor(): Employee? {
         return service.findSeniorSupervisor()
     }
+
+    fun resetEmployeesHierarchy() : Boolean {
+        return service.resetEmployees()
+    }
 }

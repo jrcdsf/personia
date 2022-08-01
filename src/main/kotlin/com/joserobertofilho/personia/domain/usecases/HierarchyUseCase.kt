@@ -16,8 +16,17 @@ class HierarchyUseCase {
     @Autowired
     lateinit var validators: Set<Validator>
 
+    object HierarchyStatus {
+        var isHierarchyConfigured = false
+
+    }
+
     fun createHierarchy(relationships: Map<String, String>): MutableMap<String, Set<String>> {
         val validationStatus = validate(relationships)
+        if (HierarchyStatus.isHierarchyConfigured)
+            if (!employeeUseCase.resetEmployeesHierarchy()) return mutableMapOf()
+            else
+                HierarchyStatus.isHierarchyConfigured = false
         val hierarchy: MutableMap<String, Set<String>> = mutableMapOf()
         relationships.forEach { (emp, sup) ->
             if (hierarchy[sup] != null)
@@ -39,6 +48,7 @@ class HierarchyUseCase {
 
             }
         }
+        HierarchyStatus.isHierarchyConfigured = true
         return hierarchy
     }
 
@@ -115,5 +125,9 @@ class HierarchyUseCase {
             }
         }
         return result
+    }
+
+    protected fun resetHierarchy(): Boolean {
+        return true
     }
 }

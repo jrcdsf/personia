@@ -9,5 +9,6 @@ interface EmployeeServiceInterface {
     fun findAll(): Set<Employee>?
     fun findEmployeesBySupervisorId(supervisorId: Long): Set<Employee>?
     fun findSeniorSupervisor(): Employee?
+    fun resetEmployees() : Boolean
 
 }
