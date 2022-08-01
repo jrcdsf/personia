@@ -5,7 +5,10 @@ Date: August 1 2022
 
 ## Description
 
-Personia API is designed to validate and setup a company hierarchy and generate employee hierarchy reports.
+Personia API is a service designed to validate and setup a company hierarchy and generate employee hierarchy reports.
+
+Before using the service you must create a valid user and login using the provided credentials since the access to the 
+API is authenticated.
 
 
 ## Project setup
@@ -32,7 +35,7 @@ Personia API is designed to validate and setup a company hierarchy and generate 
 
 POST http://localhost:8080/signup
 
-JSON body:
+Example body:
 `{
 "fullName": "Jose Roberto",
 "email": "jose@fakeemail.com",
@@ -43,19 +46,19 @@ JSON body:
 
 POST http://localhost:8080/login
 
-JSON body:
+Example body:
 `{
 "email": "jose@fakeemail.com",
 "password": "123456"
 }`
 
-NOTE: the token returned in the response will be automatically set for the next options due to Postman automation
+NOTE: the token returned in the response will be automatically set for the next options due to Postman automation.
 
 - Now you can use the option **Create hierarchy** to setup your company hierarchy:
 
 POST http://localhost:8080/employees
 
-JSON body: 
+Example body: 
 `{
 "Pete": "Nick",
 "Barbara": "Nick",
