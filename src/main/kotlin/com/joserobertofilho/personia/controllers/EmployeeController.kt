@@ -1,6 +1,6 @@
 package com.joserobertofilho.personia.controllers
 
-import com.joserobertofilho.personia.domain.exceptions.Message
+import com.joserobertofilho.personia.domain.exceptions.StatusMessage
 import com.joserobertofilho.personia.domain.usecases.HierarchyUseCase
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -15,14 +15,14 @@ class EmployeeController {
     lateinit var usecase: HierarchyUseCase
 
     @PostMapping
-    fun createHierarchy(@RequestBody relationships: Map<String, String>): ResponseEntity<Message> {
+    fun createHierarchy(@RequestBody relationships: Map<String, String>): ResponseEntity<StatusMessage> {
         return if (usecase.createHierarchy(relationships).isNotEmpty())
             ResponseEntity(
-                Message(HttpStatus.CREATED.value(), "Employees hierarchy successfully created"),
+                StatusMessage(HttpStatus.CREATED.value(), "Employees hierarchy successfully created"),
                 HttpStatus.CREATED
             )
         else ResponseEntity(
-            Message(
+            StatusMessage(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "API failure - cannot create the employees hierarchy"
             ), HttpStatus.INTERNAL_SERVER_ERROR

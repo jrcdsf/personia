@@ -23,7 +23,7 @@ internal class EmptyRelationshipsValidatorTest : BaseTest() {
     fun `given empty payload then should throw exception`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(emptyBody)
         assertThrows(EmptyRelationshipsException::class.java) {
-            EmptyRelationshipsValidator().validate(payload)
+            EmptyRelationshipsValidator().isValid(payload)
 
         }
     }
@@ -31,6 +31,6 @@ internal class EmptyRelationshipsValidatorTest : BaseTest() {
     @Test
     fun `given normal payload then should return true`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(normalBody)
-        assertTrue(EmptyRelationshipsValidator().validate(payload))
+        assertTrue(EmptyRelationshipsValidator().isValid(payload))
     }
 }

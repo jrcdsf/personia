@@ -28,13 +28,13 @@ internal class LoopValidatorTest : BaseTest() {
     fun `given payload with loop then should throw exception`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithLoop)
         assertThrows(HierarchyWithLoopException::class.java) {
-            LoopValidator().validate(payload)
+            LoopValidator().isValid(payload)
         }
     }
 
     @Test
     fun `given payload without loop then should return true`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithoutLoop)
-        assertTrue(LoopValidator().validate(payload))
+        assertTrue(LoopValidator().isValid(payload))
     }
 }

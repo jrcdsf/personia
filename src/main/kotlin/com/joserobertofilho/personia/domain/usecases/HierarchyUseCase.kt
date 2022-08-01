@@ -67,7 +67,7 @@ class HierarchyUseCase {
     }
 
     protected fun validate(relationships: Map<String, String>) {
-        validators.forEach { it.validate(relationships) }
+        validators.forEach { it.isValid(relationships) }
     }
 
     protected fun getSupervisorAndSeniorSupervisorByEmployee(

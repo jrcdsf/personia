@@ -95,4 +95,38 @@ internal class EmployeeControllerTest : BaseTest() {
             }
         }
     }
+
+    @Test
+    fun `GET the endpoint employees without parameter should return the full hierarchy`() {
+        mockMvc.post("/employees") {
+            contentType = MediaType.APPLICATION_JSON
+            content = payload
+            accept = MediaType.APPLICATION_JSON
+        }.andDo {
+            mockMvc.get("/employees") {
+                accept = MediaType.APPLICATION_JSON
+            }.andExpect {
+                status { isOk() }
+                content {
+                    RequestPredicates.contentType(MediaType.APPLICATION_JSON)
+                    json(
+                        """{
+                            "Jonas": {
+                                "Sophie": {
+                                    "Nick": [
+                                        {
+                                            "Pete": {}
+                                        },
+                                        {
+                                            "Barbara": {}
+                                        }
+                                    ]
+                                }
+                            }
+                        }"""
+                    )
+                }
+            }
+        }
+    }
 }

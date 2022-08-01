@@ -28,13 +28,13 @@ internal class MultipleSeniorsValidatorTest : BaseTest() {
     fun `given payload with multiple seniors then should throw exception`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithMultipleSeniors)
         assertThrows(MultipleSeniorEmployeesFoundException::class.java) {
-            MultipleSeniorsValidator().validate(payload)
+            MultipleSeniorsValidator().isValid(payload)
         }
     }
 
     @Test
     fun `given payload without multiple seniors then should return true`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithoutMultipleSeniors)
-        assertTrue(MultipleSeniorsValidator().validate(payload))
+        assertTrue(MultipleSeniorsValidator().isValid(payload))
     }
 }

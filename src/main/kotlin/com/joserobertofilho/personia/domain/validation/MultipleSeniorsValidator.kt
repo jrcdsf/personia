@@ -3,7 +3,7 @@ package com.joserobertofilho.personia.domain.validation
 import com.joserobertofilho.personia.domain.exceptions.MultipleSeniorEmployeesFoundException
 
 class MultipleSeniorsValidator : Validator {
-    override fun validate(relationships: Map<String, String>): Boolean {
+    override fun isValid(relationships: Map<String, String>): Boolean {
         val supervisors = relationships.values
         var numberOfSupervisors = 0
         val seniorSupervisorList: MutableSet<String> = mutableSetOf()

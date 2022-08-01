@@ -10,66 +10,66 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 class ExceptionControllerAdvice {
 
     @ExceptionHandler
-    fun handleIllegalStateException(ex: IllegalStateException): ResponseEntity<Message> {
+    fun handleIllegalStateException(ex: IllegalStateException): ResponseEntity<StatusMessage> {
 
-        val errorMessage = Message(
+        val errorStatusMessage = StatusMessage(
             HttpStatus.NOT_FOUND.value(),
             ex.message
         )
-        return ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST)
+        return ResponseEntity(errorStatusMessage, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler
-    fun handleHierarchyWithLoopException(ex: HierarchyWithLoopException): ResponseEntity<Message> {
-        val errorMessage = Message(
+    fun handleHierarchyWithLoopException(ex: HierarchyWithLoopException): ResponseEntity<StatusMessage> {
+        val errorStatusMessage = StatusMessage(
             HttpStatus.BAD_REQUEST.value(),
             ex.message
         )
-        return ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST)
+        return ResponseEntity(errorStatusMessage, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler
-    fun handleDuplicatedEmployeeException(ex: HttpMessageNotReadableException): ResponseEntity<Message> {
-        val errorMessage = Message(
+    fun handleDuplicatedEmployeeException(ex: HttpMessageNotReadableException): ResponseEntity<StatusMessage> {
+        val errorStatusMessage = StatusMessage(
             HttpStatus.BAD_REQUEST.value(),
             ex.message
         )
-        return ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST)
+        return ResponseEntity(errorStatusMessage, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler
-    fun handleMultipleSeniorSupervisorsException(ex: MultipleSeniorEmployeesFoundException): ResponseEntity<Message> {
-        val errorMessage = Message(
+    fun handleMultipleSeniorSupervisorsException(ex: MultipleSeniorEmployeesFoundException): ResponseEntity<StatusMessage> {
+        val errorStatusMessage = StatusMessage(
             HttpStatus.BAD_REQUEST.value(),
             ex.message
         )
-        return ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST)
+        return ResponseEntity(errorStatusMessage, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler
-    fun handleEmployeeNotFoundException(ex: EmployeeNotFoundException): ResponseEntity<Message> {
-        val errorMessage = Message(
+    fun handleEmployeeNotFoundException(ex: EmployeeNotFoundException): ResponseEntity<StatusMessage> {
+        val errorStatusMessage = StatusMessage(
             HttpStatus.NOT_FOUND.value(),
             ex.message
         )
-        return ResponseEntity(errorMessage, HttpStatus.NOT_FOUND)
+        return ResponseEntity(errorStatusMessage, HttpStatus.NOT_FOUND)
     }
 
     @ExceptionHandler
-    fun handleSeniorSupervisorNotFoundException(ex: SeniorSupervisorNotFoundException): ResponseEntity<Message> {
-        val errorMessage = Message(
+    fun handleSeniorSupervisorNotFoundException(ex: SeniorSupervisorNotFoundException): ResponseEntity<StatusMessage> {
+        val errorStatusMessage = StatusMessage(
             HttpStatus.NOT_FOUND.value(),
             ex.message
         )
-        return ResponseEntity(errorMessage, HttpStatus.NOT_FOUND)
+        return ResponseEntity(errorStatusMessage, HttpStatus.NOT_FOUND)
     }
 
     @ExceptionHandler
-    fun handleEmptyRelationshipsException(ex: EmptyRelationshipsException): ResponseEntity<Message> {
-        val errorMessage = Message(
+    fun handleEmptyRelationshipsException(ex: EmptyRelationshipsException): ResponseEntity<StatusMessage> {
+        val errorStatusMessage = StatusMessage(
             HttpStatus.BAD_REQUEST.value(),
             ex.message
         )
-        return ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST)
+        return ResponseEntity(errorStatusMessage, HttpStatus.BAD_REQUEST)
     }
 }
