@@ -1,6 +1,6 @@
 package com.joserobertofilho.personia.domain.usecases
 
-import com.joserobertofilho.personia.domain.entities.Employee
+import com.joserobertofilho.personia.helpers.BaseTest
 import com.joserobertofilho.personia.infra.services.EmployeeService
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -12,25 +12,13 @@ import org.junit.jupiter.api.Assertions.assertIterableEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-internal class EmployeeUseCaseTest {
+internal class EmployeeUseCaseTest : BaseTest() {
 
     @MockK
     lateinit var mockedService: EmployeeService
 
     @InjectMockKs
     lateinit var employeeUseCase: EmployeeUseCase
-
-    private val employee = Employee(1, "test 1", 5)
-
-    private val anotherEmployee = Employee(2, "test 2", 5)
-
-    private val supervisor = Employee(5, "supervisor", 10, true)
-
-    private val employeesUnderSupervisor = mutableSetOf(employee, anotherEmployee)
-
-    private val senior = Employee(10, "supervisor", null, true)
-
-    private val allEmployees = mutableSetOf(employee, supervisor, senior)
 
     @BeforeEach
     fun init() {

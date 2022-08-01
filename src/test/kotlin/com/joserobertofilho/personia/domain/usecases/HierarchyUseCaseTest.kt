@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.joserobertofilho.personia.domain.entities.Employee
 import com.joserobertofilho.personia.domain.validation.Validator
+import com.joserobertofilho.personia.helpers.BaseTest
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -14,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 
-internal class HierarchyUseCaseTest {
+internal class HierarchyUseCaseTest : BaseTest() {
 
     class WrapperHierarchyUseCase(
         val employees: Set<Employee>,
@@ -42,18 +43,6 @@ internal class HierarchyUseCaseTest {
 
     @InjectMockKs
     lateinit var hierarchyUseCase: HierarchyUseCase
-
-    private val employee = Employee(1, "test 1", 5)
-
-    private val anotherEmployee = Employee(2, "test 2", 5)
-
-    private val supervisor = Employee(5, "supervisor", 10, true)
-
-    private val employeesUnderSupervisor = mutableSetOf(employee, anotherEmployee)
-
-    private val senior = Employee(10, "supervisor", null, true)
-
-    private val allEmployees = mutableSetOf(employee, supervisor, senior)
 
     private val hierarchy: MutableMap<String, Set<String>> = mutableMapOf()
 
