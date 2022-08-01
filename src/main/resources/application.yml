@@ -29,7 +29,8 @@ spring:
           use_jdbc_metadata_defaults: false
         naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 
-
+jwt:
+  secret: littlesecret
 # -------------------------- LOGGING -------------------------- #
 logging:
   level:

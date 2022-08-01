@@ -24,6 +24,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.0")
 	implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.0")
 	implementation("org.springframework.boot:spring-boot-starter-validation:2.7.0")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("io.jsonwebtoken:jjwt:0.6.0")
 	implementation("io.mockk:mockk:1.12.4")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("org.springframework.boot:spring-boot-starter-test:2.7.0")
