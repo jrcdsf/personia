@@ -18,7 +18,15 @@ Personia API is designed to validate and setup a company hierarchy and generate 
 
 - Import the Postman DEV environment file present in folder ./postman/
 
-- Import the Postman collection file present in folder ./postman/ 
+
+    DEV.postman_environment.json
+
+
+- Import the Postman collection file present in folder ./postman/
+
+
+    Personia API - Security.postman_collection.json
+
 
 - Use the option **Signup** to create a valid user:
 
