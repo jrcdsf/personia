@@ -29,11 +29,13 @@ class JWTAuthorizationFilter : BasicAuthenticationFilter {
     }
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
-        val authorizationHeader = request.getHeader(authorization)
+        val authorizationHeader: String? = request.getHeader(authorization)
 
-        if (authorizationHeader.startsWith(bearer)) {
-            val auth = getAuthentication(authorizationHeader)
-            SecurityContextHolder.getContext().authentication = auth
+        if (authorizationHeader != null) {
+            if (authorizationHeader.startsWith(bearer)) {
+                val auth = getAuthentication(authorizationHeader)
+                SecurityContextHolder.getContext().authentication = auth
+            }
         }
 
         chain.doFilter(request, response)
@@ -46,7 +48,7 @@ class JWTAuthorizationFilter : BasicAuthenticationFilter {
             val user = userDetailService.loadUserByUsername(username)
             return UsernamePasswordAuthenticationToken(user, null, user.authorities)
         }
-        throw UsernameNotFoundException("Auth invalid!")
+        throw UsernameNotFoundException("User not authenticated!")
     }
 
 }

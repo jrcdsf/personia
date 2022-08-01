@@ -1,7 +1,6 @@
 package com.joserobertofilho.personia.infra.security
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -15,13 +14,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig : WebSecurityConfigurerAdapter() {
+class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Autowired
     private lateinit var userDetailsService: UserDetailsService
 
     @Autowired
     private lateinit var jwtUtil: JWTUtil
+
+    @Autowired
+    private lateinit var bCryptPasswordEncoder: BCryptPasswordEncoder
 
 
     override fun configure(http: HttpSecurity) {
@@ -40,13 +42,9 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
 
-    @Bean
-    fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
 
     override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder())
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder)
     }
 
 }
