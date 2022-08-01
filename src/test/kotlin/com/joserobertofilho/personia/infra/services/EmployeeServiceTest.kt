@@ -1,7 +1,6 @@
 package com.joserobertofilho.personia.infra.services
 
 import com.joserobertofilho.personia.helpers.BaseTest
-import com.joserobertofilho.personia.infra.mappers.EmployeeMapper
 import com.joserobertofilho.personia.infra.repositories.EmployeeRepository
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -13,8 +12,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class EmployeeServiceTest : BaseTest() {
-
-    private val employeeMapper: EmployeeMapper = EmployeeMapper()
 
     @MockK
     lateinit var mockedRepository: EmployeeRepository
