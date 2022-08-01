@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig: WebSecurityConfigurerAdapter() {
+class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Autowired
     private lateinit var userDetailsService: UserDetailsService
@@ -26,11 +26,17 @@ class SecurityConfig: WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
         http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/signup").permitAll()
-                .anyRequest().authenticated()
+            .antMatchers(HttpMethod.POST, "/signup").permitAll()
+            .anyRequest().authenticated()
 
         http.addFilter(JWTAuthenticationFilter(authenticationManager(), jwtUtil = jwtUtil))
-        http.addFilter(JWTAuthorizationFilter(authenticationManager(), jwtUtil = jwtUtil, userDetailService = userDetailsService))
+        http.addFilter(
+            JWTAuthorizationFilter(
+                authenticationManager(),
+                jwtUtil = jwtUtil,
+                userDetailService = userDetailsService
+            )
+        )
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     }
 

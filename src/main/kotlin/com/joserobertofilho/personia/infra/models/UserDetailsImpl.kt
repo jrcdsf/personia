@@ -9,7 +9,7 @@ class UserDetailsImpl(private val user: User) : UserDetails {
 
     override fun isEnabled() = true
 
-    override fun getUsername() =  user.email
+    override fun getUsername() = user.email
 
     override fun isCredentialsNonExpired() = true
 
