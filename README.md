@@ -14,7 +14,7 @@ Personia API is designed to validate and setup a company hierarchy and generate 
 
 - Run the startup script:
 
-`$ bash ./startup.sh`
+`$ bash startup.sh`
 
 - Import the Postman DEV environment file present in folder ./postman/
 
