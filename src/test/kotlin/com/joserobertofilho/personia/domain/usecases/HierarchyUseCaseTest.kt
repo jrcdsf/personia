@@ -86,13 +86,13 @@ internal class HierarchyUseCaseTest {
     }
 
     @Test
-    fun createHierarchy() {
+    fun `passing the hierarchy should create the hierarchy and return it`() {
 
 
     }
 
     @Test
-    fun getSupervisorAndSeniorSupervisorByEmployee() {
+    fun `passing the employee name should return the supervisor and the senior supervisor of the employee`() {
         every { mockedEmployeeUseCase.find(any()) } returns employee
         every { mockedEmployeeUseCase.findAll() } returns allEmployees
 

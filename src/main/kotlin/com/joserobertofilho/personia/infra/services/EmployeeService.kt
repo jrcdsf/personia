@@ -20,10 +20,6 @@ class EmployeeService : EmployeeServiceInterface {
         return employeeMapper.convertToEmployee(employeeRepository.save(employeeMapper.convertToEmployeeEntity(employee)))
     }
 
-    override fun find(id: Long): Employee? {
-        return employeeMapper.convertToEmployee(employeeRepository.findById(id).orElse(null))
-    }
-
     override fun find(name: String): Employee? {
         return employeeRepository.findByName(name)?.let { employeeMapper.convertToEmployee(it) }
     }

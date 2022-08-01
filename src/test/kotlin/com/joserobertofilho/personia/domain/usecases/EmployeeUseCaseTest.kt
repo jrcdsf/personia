@@ -38,7 +38,7 @@ internal class EmployeeUseCaseTest {
     }
 
     @Test
-    fun add_employee_should_return_employee() {
+    fun `add employee should return employee`() {
         every { mockedService.add(any()) } returns employee
 
         val actual = employeeUseCase.addEmployee(employee)
@@ -48,7 +48,7 @@ internal class EmployeeUseCaseTest {
     }
 
     @Test
-    fun find_employee_should_return_employee() {
+    fun `find employee should return employee`() {
         every { mockedService.find(employee.name) } returns employee
 
         val actual = employeeUseCase.find(employee.name)
@@ -58,7 +58,7 @@ internal class EmployeeUseCaseTest {
     }
 
     @Test
-    fun find_all_employees_should_return_list_of_employees() {
+    fun `find all employees should return list of employees`() {
         every { mockedService.findAll() } returns allEmployees
 
         val actual = employeeUseCase.findAll()
@@ -68,7 +68,7 @@ internal class EmployeeUseCaseTest {
     }
 
     @Test
-    fun find_employees_by_supervisor_id_should_return_list_of_employees_under_that_supervisor() {
+    fun `find employees by supervisor id should return list of employees under that supervisor`() {
         every { mockedService.findEmployeesBySupervisorId(supervisor.id) } returns employeesUnderSupervisor
 
         val actual = employeeUseCase.findEmployeesBySupervisorId(supervisor.id)
@@ -78,7 +78,7 @@ internal class EmployeeUseCaseTest {
     }
 
     @Test
-    fun find_senior_supervisor_should_return_senior_supervisor() {
+    fun `find senior supervisor should return senior supervisor`() {
         every { mockedService.findSeniorSupervisor() } returns senior
 
         val actual = employeeUseCase.findSeniorSupervisor()
