@@ -8,6 +8,18 @@
 	"item": [
 		{
 			"name": "Create hierarchy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var xsrfCookie = postman.getResponseCookie(\"XSRF-TOKEN\");",
+							"postman.setEnvironmentVariable(\"xsrf-token\", xsrfCookie.value);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -20,7 +32,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrf-token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\"Pete\": \"Nick\",\n\"Barbara\": \"Nick\",\n\"Nick\": \"Sophie\",\n\"Sophie\": \"Jonas\"\n}",
@@ -59,7 +77,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/employees?name=Pete",
+					"raw": "http://localhost:8080/employees",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -71,7 +89,8 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "Pete"
+							"value": "Jonas",
+							"disabled": true
 						}
 					]
 				}
@@ -85,7 +104,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							""
+							"var xsrfCookie = postman.getResponseCookie(\"XSRF-TOKEN\");",
+							"postman.setEnvironmentVariable(\"xsrf-token\", xsrfCookie.value);"
 						],
 						"type": "text/javascript"
 					}
@@ -100,8 +120,7 @@
 					{
 						"key": "X-XSRF-TOKEN",
 						"value": "{{xsrf-token}}",
-						"type": "text",
-						"disabled": true
+						"type": "text"
 					}
 				],
 				"body": {
@@ -134,6 +153,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"var xsrfCookie = postman.getResponseCookie(\"XSRF-TOKEN\");",
+							"postman.setEnvironmentVariable(\"xsrf-token\", xsrfCookie.value);",
+							"",
 							"var auth = pm.response.headers.get('Authorization')",
 							"var token = auth.split(' ')",
 							"pm.environment.set('token', token[1])",
@@ -148,7 +170,13 @@
 					"type": "noauth"
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrf-token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"email\": \"jose@fakeemail.com\",\n    \"password\": \"123456\"\n}",
