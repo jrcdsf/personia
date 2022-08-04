@@ -1,8 +1,7 @@
 package com.joserobertofilho.personia.controllers
 
-import com.joserobertofilho.personia.domain.boundaries.IHierarchyUseCaseInterface
+import com.joserobertofilho.personia.domain.boundaries.HierarchyUseCaseInterface
 import com.joserobertofilho.personia.domain.exceptions.StatusMessage
-import com.joserobertofilho.personia.domain.usecases.HierarchyUseCase
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 class EmployeeController {
 
     @Autowired
-    lateinit var usecase: IHierarchyUseCaseInterface
+    lateinit var usecase: HierarchyUseCaseInterface
 
     @PostMapping
     fun createHierarchy(@RequestBody relationships: Map<String, String>): ResponseEntity<StatusMessage> {

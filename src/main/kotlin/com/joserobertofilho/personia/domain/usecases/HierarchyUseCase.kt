@@ -1,6 +1,6 @@
 package com.joserobertofilho.personia.domain.usecases
 
-import com.joserobertofilho.personia.domain.boundaries.IHierarchyUseCaseInterface
+import com.joserobertofilho.personia.domain.boundaries.HierarchyUseCaseInterface
 import com.joserobertofilho.personia.domain.entities.Employee
 import com.joserobertofilho.personia.domain.exceptions.EmployeeNotFoundException
 import com.joserobertofilho.personia.domain.exceptions.SeniorSupervisorNotFoundException
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class HierarchyUseCase : IHierarchyUseCaseInterface {
+class HierarchyUseCase : HierarchyUseCaseInterface {
 
     @Autowired
     lateinit var employeeUseCase: EmployeeUseCase

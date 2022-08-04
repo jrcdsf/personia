@@ -1,5 +1,6 @@
 package com.joserobertofilho.personia.infra.services
 
+import com.joserobertofilho.personia.domain.boundaries.UserServiceInterface
 import com.joserobertofilho.personia.infra.entities.UserEntity
 import com.joserobertofilho.personia.infra.security.UserDetailsImpl
 import com.joserobertofilho.personia.infra.repositories.UserRepository
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class UserService {
+class UserService : UserServiceInterface {
 
     @Autowired
     private lateinit var userRepository: UserRepository
@@ -18,18 +19,9 @@ class UserService {
     @Autowired
     private lateinit var bCryptPasswordEncoder: BCryptPasswordEncoder
 
-    fun create(userEntity: UserEntity): UserEntity {
+    override fun create(userEntity: UserEntity): UserEntity {
         userEntity.password = bCryptPasswordEncoder.encode(userEntity.password)
         return userRepository.save(userEntity)
-    }
-
-    fun myself(): String? {
-        return userRepository.findByEmail(getCurrentUserEmail())?.fullName
-    }
-
-    private fun getCurrentUserEmail(): String? {
-        val user = SecurityContextHolder.getContext().authentication.principal as UserDetailsImpl
-        return user.username
     }
 
 }

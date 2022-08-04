@@ -1,5 +1,6 @@
 package com.joserobertofilho.personia.controllers
 
+import com.joserobertofilho.personia.domain.boundaries.UserServiceInterface
 import com.joserobertofilho.personia.infra.entities.UserEntity
 import com.joserobertofilho.personia.infra.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +16,7 @@ import java.net.URI
 class SignupController {
 
     @Autowired
-    private lateinit var userService: UserService
+    private lateinit var userService: UserServiceInterface
 
     @PostMapping
     fun signup(@RequestBody userEntity: UserEntity): ResponseEntity<UserEntity> {
