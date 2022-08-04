@@ -1,6 +1,6 @@
 package com.joserobertofilho.personia.domain.validation
 
-interface Validator {
+interface ValidatorInterface {
 
     fun isValid(relationships: Map<String, String>): Boolean
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-internal class EmptyRelationshipsValidatorTest : BaseTest() {
+internal class EmptyRelationshipsValidatorTestInterface : BaseTest() {
 
     private val emptyBody = """{}"""
 
@@ -23,7 +23,7 @@ internal class EmptyRelationshipsValidatorTest : BaseTest() {
     fun `given empty payload then should throw exception`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(emptyBody)
         assertThrows(EmptyRelationshipsException::class.java) {
-            EmptyRelationshipsValidator().isValid(payload)
+            EmptyRelationshipsValidatorInterface().isValid(payload)
 
         }
     }
@@ -31,6 +31,6 @@ internal class EmptyRelationshipsValidatorTest : BaseTest() {
     @Test
     fun `given normal payload then should return true`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(normalBody)
-        assertTrue(EmptyRelationshipsValidator().isValid(payload))
+        assertTrue(EmptyRelationshipsValidatorInterface().isValid(payload))
     }
 }

@@ -30,7 +30,7 @@ class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
             .authorizeRequests()
-            .antMatchers(HttpMethod.OPTIONS,"*").permitAll()
+            .antMatchers(HttpMethod.OPTIONS, "*").permitAll()
             .antMatchers(HttpMethod.POST, "/signup").permitAll()
             .anyRequest().authenticated()
 

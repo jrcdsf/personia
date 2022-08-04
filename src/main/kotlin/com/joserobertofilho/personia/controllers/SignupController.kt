@@ -2,7 +2,6 @@ package com.joserobertofilho.personia.controllers
 
 import com.joserobertofilho.personia.domain.boundaries.UserServiceInterface
 import com.joserobertofilho.personia.infra.entities.UserEntity
-import com.joserobertofilho.personia.infra.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

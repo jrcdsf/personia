@@ -3,7 +3,7 @@ package com.joserobertofilho.personia.domain.usecases
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.joserobertofilho.personia.domain.entities.Employee
-import com.joserobertofilho.personia.domain.validation.Validator
+import com.joserobertofilho.personia.domain.validation.ValidatorInterface
 import com.joserobertofilho.personia.helpers.BaseTest
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -39,7 +39,7 @@ internal class HierarchyUseCaseTest : BaseTest() {
     lateinit var mockedEmployeeUseCase: EmployeeUseCase
 
     @MockK
-    lateinit var mockedValidators: Set<Validator>
+    lateinit var mockedValidatorInterfaces: Set<ValidatorInterface>
 
     @InjectMockKs
     lateinit var hierarchyUseCase: HierarchyUseCase

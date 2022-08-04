@@ -1,9 +1,9 @@
 package com.joserobertofilho.personia.domain.config
 
-import com.joserobertofilho.personia.domain.validation.EmptyRelationshipsValidator
-import com.joserobertofilho.personia.domain.validation.LoopValidator
-import com.joserobertofilho.personia.domain.validation.MultipleSeniorsValidator
-import com.joserobertofilho.personia.domain.validation.Validator
+import com.joserobertofilho.personia.domain.validation.EmptyRelationshipsValidatorInterface
+import com.joserobertofilho.personia.domain.validation.LoopValidatorInterface
+import com.joserobertofilho.personia.domain.validation.MultipleSeniorsValidatorInterface
+import com.joserobertofilho.personia.domain.validation.ValidatorInterface
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration
 class ValidatorConfig {
 
     @Bean
-    fun validators(): Set<Validator> {
+    fun validators(): Set<ValidatorInterface> {
         return setOf(
-            LoopValidator(),
-            MultipleSeniorsValidator(),
-            EmptyRelationshipsValidator()
+            LoopValidatorInterface(),
+            MultipleSeniorsValidatorInterface(),
+            EmptyRelationshipsValidatorInterface()
         )
     }
 }

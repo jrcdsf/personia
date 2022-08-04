@@ -1,7 +1,7 @@
 package com.joserobertofilho.personia.infra.services
 
-import com.joserobertofilho.personia.infra.security.UserDetailsImpl
 import com.joserobertofilho.personia.infra.repositories.UserRepository
+import com.joserobertofilho.personia.infra.security.UserDetailsImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

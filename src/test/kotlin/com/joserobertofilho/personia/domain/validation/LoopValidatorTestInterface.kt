@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-internal class LoopValidatorTest : BaseTest() {
+internal class LoopValidatorTestInterface : BaseTest() {
 
     private val bodyWithLoop = """{
             "Pete": "Nick",
@@ -28,13 +28,13 @@ internal class LoopValidatorTest : BaseTest() {
     fun `given payload with loop then should throw exception`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithLoop)
         assertThrows(HierarchyWithLoopException::class.java) {
-            LoopValidator().isValid(payload)
+            LoopValidatorInterface().isValid(payload)
         }
     }
 
     @Test
     fun `given payload without loop then should return true`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithoutLoop)
-        assertTrue(LoopValidator().isValid(payload))
+        assertTrue(LoopValidatorInterface().isValid(payload))
     }
 }

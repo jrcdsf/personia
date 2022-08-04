@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
-internal class MultipleSeniorsValidatorTest : BaseTest() {
+internal class MultipleSeniorsValidatorTestInterface : BaseTest() {
 
     private val bodyWithMultipleSeniors = """{
             "Pete": "Nick",
@@ -28,13 +28,13 @@ internal class MultipleSeniorsValidatorTest : BaseTest() {
     fun `given payload with multiple seniors then should throw exception`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithMultipleSeniors)
         assertThrows(MultipleSeniorEmployeesFoundException::class.java) {
-            MultipleSeniorsValidator().isValid(payload)
+            MultipleSeniorsValidatorInterface().isValid(payload)
         }
     }
 
     @Test
     fun `given payload without multiple seniors then should return true`() {
         val payload = objectMapper.readValue<MutableMap<String, String>>(bodyWithoutMultipleSeniors)
-        assertTrue(MultipleSeniorsValidator().isValid(payload))
+        assertTrue(MultipleSeniorsValidatorInterface().isValid(payload))
     }
 }

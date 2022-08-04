@@ -4,7 +4,7 @@ import com.joserobertofilho.personia.domain.boundaries.HierarchyUseCaseInterface
 import com.joserobertofilho.personia.domain.entities.Employee
 import com.joserobertofilho.personia.domain.exceptions.EmployeeNotFoundException
 import com.joserobertofilho.personia.domain.exceptions.SeniorSupervisorNotFoundException
-import com.joserobertofilho.personia.domain.validation.Validator
+import com.joserobertofilho.personia.domain.validation.ValidatorInterface
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -15,7 +15,7 @@ class HierarchyUseCase : HierarchyUseCaseInterface {
     lateinit var employeeUseCase: EmployeeUseCase
 
     @Autowired
-    lateinit var validators: Set<Validator>
+    lateinit var validatorInterfaces: Set<ValidatorInterface>
 
     object HierarchyStatus {
         var isHierarchyConfigured = false
@@ -78,7 +78,7 @@ class HierarchyUseCase : HierarchyUseCaseInterface {
     }
 
     protected fun validate(relationships: Map<String, String>) {
-        validators.forEach { it.isValid(relationships) }
+        validatorInterfaces.forEach { it.isValid(relationships) }
     }
 
     protected fun getSupervisorAndSeniorSupervisorByEmployee(
