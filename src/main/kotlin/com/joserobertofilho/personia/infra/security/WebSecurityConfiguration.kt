@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
 
 @Configuration
@@ -27,7 +28,9 @@ class WebSecurityConfiguration : WebSecurityConfigurerAdapter() {
 
 
     override fun configure(http: HttpSecurity) {
-        http.csrf().disable().authorizeRequests()
+        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+            .authorizeRequests()
+            .antMatchers(HttpMethod.OPTIONS,"*").permitAll()
             .antMatchers(HttpMethod.POST, "/signup").permitAll()
             .anyRequest().authenticated()
 
