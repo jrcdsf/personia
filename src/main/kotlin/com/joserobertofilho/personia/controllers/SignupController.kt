@@ -1,6 +1,6 @@
 package com.joserobertofilho.personia.controllers
 
-import com.joserobertofilho.personia.infra.models.User
+import com.joserobertofilho.personia.infra.entities.UserEntity
 import com.joserobertofilho.personia.infra.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -18,8 +18,8 @@ class SignupController {
     private lateinit var userService: UserService
 
     @PostMapping
-    fun signup(@RequestBody user: User): ResponseEntity<User> {
-        val userCreated = userService.create(user)
+    fun signup(@RequestBody userEntity: UserEntity): ResponseEntity<UserEntity> {
+        val userCreated = userService.create(userEntity)
         return ResponseEntity.created(URI("")).body(userCreated)
     }
 

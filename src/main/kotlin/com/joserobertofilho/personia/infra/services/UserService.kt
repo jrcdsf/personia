@@ -1,7 +1,7 @@
 package com.joserobertofilho.personia.infra.services
 
-import com.joserobertofilho.personia.infra.models.User
-import com.joserobertofilho.personia.infra.models.UserDetailsImpl
+import com.joserobertofilho.personia.infra.entities.UserEntity
+import com.joserobertofilho.personia.infra.security.UserDetailsImpl
 import com.joserobertofilho.personia.infra.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
@@ -18,9 +18,9 @@ class UserService {
     @Autowired
     private lateinit var bCryptPasswordEncoder: BCryptPasswordEncoder
 
-    fun create(user: User): User {
-        user.password = bCryptPasswordEncoder.encode(user.password)
-        return userRepository.save(user)
+    fun create(userEntity: UserEntity): UserEntity {
+        userEntity.password = bCryptPasswordEncoder.encode(userEntity.password)
+        return userRepository.save(userEntity)
     }
 
     fun myself(): String? {

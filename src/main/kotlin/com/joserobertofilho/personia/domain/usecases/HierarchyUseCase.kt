@@ -1,5 +1,6 @@
 package com.joserobertofilho.personia.domain.usecases
 
+import com.joserobertofilho.personia.domain.boundaries.IHierarchyUseCaseInterface
 import com.joserobertofilho.personia.domain.entities.Employee
 import com.joserobertofilho.personia.domain.exceptions.EmployeeNotFoundException
 import com.joserobertofilho.personia.domain.exceptions.SeniorSupervisorNotFoundException
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class HierarchyUseCase {
+class HierarchyUseCase : IHierarchyUseCaseInterface {
 
     @Autowired
     lateinit var employeeUseCase: EmployeeUseCase
@@ -21,7 +22,7 @@ class HierarchyUseCase {
 
     }
 
-    fun createHierarchy(relationships: Map<String, String>): MutableMap<String, Set<String>> {
+    override fun createHierarchy(relationships: Map<String, String>): MutableMap<String, Set<String>> {
         val validationStatus = validate(relationships)
         if (HierarchyStatus.isHierarchyConfigured)
             if (!employeeUseCase.resetEmployeesHierarchy()) return mutableMapOf()
@@ -52,7 +53,7 @@ class HierarchyUseCase {
         return hierarchy
     }
 
-    fun getSupervisorAndSeniorSupervisorByEmployee(name: String): Map<String, Any> {
+    override fun getSupervisorAndSeniorSupervisorByEmployee(name: String): Map<String, Any> {
         val aEmployee = employeeUseCase.find(name)
         return if (aEmployee != null) {
             val all = employeeUseCase.findAll()
@@ -67,7 +68,7 @@ class HierarchyUseCase {
         }
     }
 
-    fun getFullHierarchy(): Map<String, Any>? {
+    override fun getFullHierarchy(): Map<String, Any>? {
         val senior = employeeUseCase.findSeniorSupervisor()
         if (senior != null) {
             return getHierarchy(senior)

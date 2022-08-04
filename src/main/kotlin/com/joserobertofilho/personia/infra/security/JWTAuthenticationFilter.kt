@@ -2,7 +2,6 @@ package com.joserobertofilho.personia.infra.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.joserobertofilho.personia.infra.models.Credentials
-import com.joserobertofilho.personia.infra.models.UserDetailsImpl
 import com.joserobertofilho.personia.infra.util.authorization
 import com.joserobertofilho.personia.infra.util.bearer
 import org.springframework.security.authentication.AuthenticationManager
